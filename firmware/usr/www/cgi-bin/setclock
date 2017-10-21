@@ -1,0 +1,10 @@
+#!/bin/bash
+
+source /www/cgi-bin/setup.inc
+source /www/cgi-bin/url.inc
+source /www/cgi-bin/utils.inc
+echo "CET-1CEST-2,M3.5.0/02:00:00,M10.5.0/03:00:00" > /etc/TZ
+NTP_RET=`ntpd -n -q -p pool.ntp.org 2>> /var/log/messages`
+hwclock --systohc
+DATA='{"return":"0"}'
+SendResponse "$DATA"

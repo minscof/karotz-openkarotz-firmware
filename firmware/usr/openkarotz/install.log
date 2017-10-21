@@ -1,0 +1,35 @@
+
+Sep 30 07:18:01 openkarotz syslog.info syslogd started: BusyBox v1.21.1
+Sep 30 07:18:01 openkarotz user.notice root: [OpenKarotz] [Update] Local Installation
+Sep 30 07:18:01 openkarotz user.notice root: [OpenKarotz] [Update] URL:http://karotz.filippi.org/210
+Sep 30 07:18:01 openkarotz user.notice root: [OpenKarotz] [Update] Serial  : e0b35a788ab5fd06219c5ddf5c3a4d9e
+Sep 30 07:18:01 openkarotz user.notice root: [OpenKarotz] [Update] Local Version  : 200
+Sep 30 07:18:01 openkarotz user.notice root: [OpenKarotz] [Update] Server Version : 210
+Sep 30 07:18:01 openkarotz user.notice root: [OpenKarotz] [Update] Starting Update
+Sep 30 07:18:01 openkarotz user.notice root: [OpenKarotz] [Update] Downloading sounds
+Sep 30 07:18:02 openkarotz user.notice root: [OpenKarotz] [Update] Killing default process
+Sep 30 07:18:02 openkarotz user.debug ImmortalDog[1488]: sending signal kill to pid 1489
+Sep 30 07:18:02 openkarotz user.debug ImmortalDog[1491]: sending signal kill to pid 1492
+Sep 30 07:18:02 openkarotz user.debug ImmortalDog[1494]: sending signal kill to pid 1496
+Sep 30 07:18:02 openkarotz user.debug ImmortalDog[1497]: sending signal kill to pid 1498
+Sep 30 07:18:02 openkarotz user.debug ImmortalDog[1500]: sending signal kill to pid 1501
+Sep 30 07:18:05 openkarotz user.notice root: [OpenKarotz] [Update] Creating mplayer control pipe
+Sep 30 07:18:05 openkarotz user.notice root: [OpenKarotz] [Update] Web Root  : /usr/www
+Sep 30 07:18:05 openkarotz user.notice root: [OpenKarotz] [Update] Data Root : /usr/openkarotz
+Sep 30 07:18:05 openkarotz user.notice root: [OpenKarotz] [Update] Saving config
+Sep 30 07:18:05 openkarotz user.notice root: [OpenKarotz] [Update] Downloading http://karotz.filippi.org/210/www.zip
+Sep 30 07:18:08 openkarotz user.notice root: [OpenKarotz] [Update] ---Installing
+Sep 30 07:18:12 openkarotz user.notice root: [OpenKarotz] [Update] ---Checking permissions
+Sep 30 07:18:12 openkarotz user.notice root: [OpenKarotz] [Update] ---Updating config
+Sep 30 07:18:12 openkarotz user.notice root: [OpenKarotz] [Update] Downloading http://karotz.filippi.org/210/voice.zip
+Sep 30 07:18:12 openkarotz user.notice root: [OpenKarotz] [Update] ---Installing
+Sep 30 07:18:13 openkarotz user.notice root: [OpenKarotz] [Update] Downloading http://karotz.filippi.org/210/radios.zip
+Sep 30 07:18:13 openkarotz user.notice root: [OpenKarotz] [Update] ---Installing
+Sep 30 07:18:13 openkarotz user.notice root: [OpenKarotz] [Update] Fixing file format
+Sep 30 07:18:19 openkarotz user.notice root: [OpenKarotz] [Update] collecting Feedback Info
+Sep 30 07:18:19 openkarotz user.notice root: [OpenKarotz] [Update] Finished
+Sep 30 07:18:19 openkarotz user.notice root: [OpenKarotz] [Update] Rebooting in 20 seconds
+Sep 30 07:18:34 openkarotz daemon.info init: starting pid 2265, tty '': '/karotz/scripts/karotz_shutdown.sh'
+Sep 30 07:18:34 openkarotz daemon.info init: starting pid 2270, tty '': '/bin/umount -a -r'
+Sep 30 07:18:35 openkarotz daemon.info init: The system is going down NOW!
+Sep 30 07:18:35 openkarotz syslog.info syslogd exiting

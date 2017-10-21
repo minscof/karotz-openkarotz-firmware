@@ -1,0 +1,29 @@
+#!/bin/bash
+
+source /usr/www/cgi-bin/setup.inc
+source /usr/www/cgi-bin/leds.inc
+source /usr/www/cgi-bin/utils.inc
+source /www/cgi-bin/url.inc
+
+CheckMandatoryDirectory  "$CNF_DATADIR/Streams"
+DATA=""
+
+printf -v UTEMP '%s/Ressources/Radios' $CNF_ROOT_URL
+
+if [ -e "$CNF_DATADIR/Apps/Streams/radios.json"  ]; then
+   Log "[UPDATE][RADIOS]"  "Save Existing Radios List"
+   cp "$CNF_DATADIR/Apps/Streams/radios.json" "$CNF_DATADIR/Apps/Streams/radios.json.bak"
+   rm -f "$CNF_DATADIR/Apps/Streams/radios.json"
+fi
+
+Log "[UPDATE][RADIOS]"  "Downloading Updated Radios List"
+curl --connect-timeout 30 -s -L -k -o "$CNF_DATADIR/Apps/Streams/radios.json" $UTEMP
+
+  if [ ! -e "$CNF_DATADIR/Apps/Streams/radios.json" ]; then
+    Log "[UPDATE][FIRMWARE]"  "Unable read radio List" 1
+    DATA='{"return":"0","msg":"Unable to read radio list"}'
+  else
+    DATA='{"return":"1"}'
+  fi
+
+SendResponse "$DATA"
