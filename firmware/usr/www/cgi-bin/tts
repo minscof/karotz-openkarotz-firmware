@@ -1,0 +1,92 @@
+#!/bin/bash
+ 
+source /www/cgi-bin/setup.inc
+source /www/cgi-bin/url.inc
+source /www/cgi-bin/utils.inc
+source /www/cgi-bin/tts.inc
+ 
+KillProcess SOUNDS
+ReadUrlParam
+ 
+TTS=${URLParam[text]} 
+RAW_VOICE=${URLParam[voice]}
+SPEED=${URLParam[speed]}
+NO_CACHE=${URLParam[nocache]}
+MUTE=${URLParam[mute]}
+ 
+CheckMandatoryDirectory "$CNF_DATADIR/Tmp"
+CheckMandatoryParameter "$TTS" text
+ 
+#CheckMandatoryParameter "$RAW_VOICE" voice
+
+ 
+# TTS ENGINE
+# Use ISPEECH Engine by default
+#
+# 0 ISPEECH  <= Actual default
+# 1 GOOGLE   <= Working but wrong voices
+# 2 VIOLET   <= Dead
+# 3 ACAPELA  <= Dead
+#
+TTS_ENGINE=${URLParam[engine]}
+ 
+PLAYED=0
+CACHE=0
+if [ "$TTS" == "" ] ; then
+   DATA='{"return":"1","msg":"Missing mandatory parameter(s)."}'
+   SendResponse "$DATA"
+   exit 0
+fi
+ 
+if [ ! -e "$CNF_DATADIR/Run/karotz.sleep" ]; then 
+   if [ "$RAW_VOICE" == "" ]; then
+      RAW_VOICE="1" 
+   fi
+   VOICE=$RAW_VOICE"22k"
+ 
+   if [ "$RAW_VOICE" == "alice" ]; then
+         RAW_VOICE="1"
+   fi
+ 
+   if [ "$MUTE" == "" ]; then
+         MUTE=0
+   fi
+ 
+   if [ "$NO_CACHE" == "" ]; then
+         NO_CACHE=0
+   fi
+ 
+   if [ "$TTS_ENGINE" == "" ]; then
+       TTS_ENGINE=0
+   fi
+ 
+   MD5FILE=$(echo "$TTS$VOICE" | md5sum | cut -d ' ' -f 1)
+   if [ -e "$CNF_DATADIR/Tmp/${MD5FILE}.txt"  ] && [ "$NO_CACHE" == "0"  ]; then
+      CACHE=1
+      if [ "$MUTE" != "1" ]; then
+        Log "[TTS]"  "Playing sound ${MD5FILE}.mp3 from cache"
+        PlaySound $CNF_DATADIR/Tmp/${MD5FILE}.mp3
+      fi
+      DATA='{"id":"'$MP3_ID'","played":"'$PLAYED'","cache":"'$CACHE'","return":"'$?'","voice":"'$RAW_VOICE'","mute":"'$MUTE'"}'
+   else
+       case $TTS_ENGINE in
+             0)  MP3_ID=$(ispeech $TTS $VOICE $NO_CACHE $RAW_VOICE $MUTE);;       
+       
+             1)  MP3_ID=$(GoogleTTS $TTS $VOICE $NO_CACHE $RAW_VOICE);;
+                            
+             *)  MP3_ID= "";;
+
+       esac
+       if [ "$MP3_ID" == "" ] ; then   
+      DATA='{"return":"1","msg":"Unable to generate voice message."}'
+    else
+      DATA='{"id":"'$MP3_ID'","played":"'$PLAYED'","cache":"'$CACHE'","return":"'$?'","voice":"'$RAW_VOICE'","mute":"'$MUTE'"}'      
+       fi
+   fi
+   PLAYED=1
+else
+   DATA='{"return":"1","msg":"Unable to perform action, rabbit is sleeping."}'
+fi
+ 
+SendResponse "$DATA"
+

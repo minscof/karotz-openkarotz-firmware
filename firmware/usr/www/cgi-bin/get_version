@@ -1,0 +1,18 @@
+#!/bin/bash
+
+source /www/cgi-bin/setup.inc
+source /www/cgi-bin/url.inc
+source /www/cgi-bin/utils.inc
+
+VERSION=$CNF_VERSION
+
+if [ ! -e "/karotz/etc/ok_rootfs_version" ]; then
+  RVERSION="Unkown"
+else
+  RVERSION=$(cat /karotz/etc/ok_rootfs_version)
+fi
+
+VL='{ "version":"'$VERSION'","rootfs_version":"'$RVERSION'","return":"0" }'
+
+SendResponse "$VL"
+

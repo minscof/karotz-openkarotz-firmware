@@ -1,0 +1,26 @@
+#!/bin/bash
+ 
+source /www/cgi-bin/setup.inc
+source /www/cgi-bin/url.inc
+source /www/cgi-bin/utils.inc
+ 
+VL='{ "voices": [ 
+{ "id":"1","lang":"fr Female"},
+{ "id":"2","lang":"fr Male"},
+{ "id":"3","lang":"ca Female"},
+{ "id":"4","lang":"ca Male"},
+{ "id":"5","lang":"us Female"},
+{ "id":"6","lang":"us Male"},
+{ "id":"7","lang":"uk Female"},
+{ "id":"8","lang":"uk Male"},
+{ "id":"9","lang":"de Female"},
+{ "id":"10","lang":"de Male"},
+{ "id":"11","lang":"it Female"},
+{ "id":"12","lang":"it Male"},
+{ "id":"13","lang":"spain Female"},
+{ "id":"14","lang":"spain Male"}
+], "return":"0" }'
+ 
+SendResponse "$VL"
+
+
